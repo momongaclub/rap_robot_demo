@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>音声認識サンプル</title>
+</head>
+<body>
+    <h2>音声認識サンプル</h2>
+    <button id="btn">start</button>
+    <div id="content"></div>
+
+<script>
+//音声認識の準備
+const speech = new webkitSpeechRecognition();
+speech.lang = 'ja-JP';
+
+//使用する変数を用意
+const btn = document.getElementById('btn');
+const content = document.getElementById('content');
+
+
+btn.addEventListener('click' , function() {
+    // 音声認識をスタート
+    speech.start();
+});
+
+
+speech.addEventListener('result' , function(e) {
+   // 音声認識で取得した情報を、コンソール画面に表示
+   console.log(e);
+});
+
+</script>
+<body>
+<html>
+

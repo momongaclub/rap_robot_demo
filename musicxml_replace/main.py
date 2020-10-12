@@ -30,13 +30,19 @@ def main():
     tokens = load_replace_tokens(args.replace_text)
     tree = ET.parse(args.music_xml)
     root = tree.getroot()
+    cnt = 0
     for part in root.findall('part'):
         for measure in part.findall('measure'):
             for note in measure.findall('note'):
-                for lyric, token in zip(note.findall('lyric'), tokens):
+                for lyric in note.findall('lyric'):
                     for text in lyric.findall('text'): # zipでいいのか
-                        print('text', text.text, 'token', token)
-                        text.text = str(token)
+                        try:
+                            print('text', text.text, 'token', tokens[cnt])
+                            text.text = str(tokens[cnt])
+                            cnt += 1
+                        except:
+                            tree.write(args.output_xml, "utf-8")
+                            return 0
     tree.write(args.output_xml, "utf-8")
 
 if __name__ == '__main__':
